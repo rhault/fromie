@@ -1,4 +1,5 @@
 import { orderServices } from "@/lib/services/orderService";
+import { customerServices } from "@/lib/services/customerService";
 
 interface Order {
   name: string;
@@ -17,11 +18,14 @@ export async function GET() {
     const pedidos = getOrders?.pedido_venda_produto;
 
     if (Array.isArray(pedidos)) {
-      pedidos.forEach((order) => {
+      pedidos.forEach(async (order) => {
         const { cabecalho, infoCadastro, total_pedido, lista_parcelas } = order;
+        const codeCustomer = await customerServices.getCustomer(
+          cabecalho?.codigo_cliente
+        );
 
         orders.push({
-          name: cabecalho?.codigo_cliente ?? "",
+          name: codeCustomer ?? "",
           id: cabecalho?.codigo_pedido ?? "",
           orderNumber: cabecalho?.numero_pedido ?? "",
           dueDate: infoCadastro?.dAlt ?? "",

@@ -14,7 +14,9 @@ export const orderServices = {
         call: "ListarPedidos",
         param: [param],
       });
-      return response.data;
+      console.log(response);
+      const { data } = await response.data.json();
+      return data;
     } catch (err) {
       console.log("getorder error", err);
     }
