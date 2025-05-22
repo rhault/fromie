@@ -4,7 +4,7 @@ const param = {
   pagina: 1,
   registros_por_pagina: 500,
   apenas_importado_api: "N",
-  etapa: 80,
+  etapa: 20,
 };
 
 export const orderServices = {
@@ -14,11 +14,11 @@ export const orderServices = {
         call: "ListarPedidos",
         param: [param],
       });
-      console.log(response);
-      const { data } = await response.data.json();
+      
+      const data = await response.data;
       return data;
     } catch (err) {
-      console.log("getorder error", err);
+      console.log("Order services error", err);
     }
   },
 };
